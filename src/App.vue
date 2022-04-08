@@ -1,26 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <NavbarBase @triggerMenu="triggerMenu"/>
+  <ListNav :toggleList="toggleList"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NavbarBase from './components/NavbarBase.vue'
+import ListNav from './components/ListNav.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NavbarBase,
+    ListNav
+  },
+  data(){
+    return{
+      toggleList: false
+    }
+  },
+
+  methods:{
+    triggerMenu(){
+      this.toggleList = !this.toggleList
+      console.log(this.toggleList)
+    }
   }
 }
+
 </script>
 
 <style>
+body{
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
 }
 </style>
