@@ -1,6 +1,6 @@
 <template>
   <NavbarBase @triggerMenu="triggerMenu"/>
-  <ListNav :toggleList="toggleList"/>
+  <ListNav :toggleList="toggleList" :isActiveList="isActiveList"/>
 </template>
 
 <script>
@@ -15,14 +15,16 @@ export default {
   },
   data(){
     return{
-      toggleList: false
+      toggleList: false,
+      isActiveList: '',
+      
     }
   },
 
   methods:{
     triggerMenu(){
-      this.toggleList = !this.toggleList
-      console.log(this.toggleList)
+      this.toggleList = !this.toggleList;
+      (this.toggleList ? this.isActiveList = 'active' : this.isActiveList = 'none')
     }
   }
 }
@@ -38,5 +40,7 @@ body{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
+
 </style>

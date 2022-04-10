@@ -5,9 +5,9 @@
             <button @click="this.$emit('triggerMenu')">
                 <span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.05 11H3.95C3.42533 11 3 11.4253 3 11.95V12.05C3 12.5747 3.42533 13 3.95 13H20.05C20.5747 13 21 12.5747 21 12.05V11.95C21 11.4253 20.5747 11 20.05 11Z" fill="white"/>
-                        <path d="M20.05 16H3.95C3.42533 16 3 16.4253 3 16.95V17.05C3 17.5747 3.42533 18 3.95 18H20.05C20.5747 18 21 17.5747 21 17.05V16.95C21 16.4253 20.5747 16 20.05 16Z" fill="white"/>
-                        <path d="M20.05 6H3.95C3.42533 6 3 6.42533 3 6.95V7.05C3 7.57467 3.42533 8 3.95 8H20.05C20.5747 8 21 7.57467 21 7.05V6.95C21 6.42533 20.5747 6 20.05 6Z" fill="white"/>
+                        <path class="bar bar1" d="M20.05 11H3.95C3.42533 11 3 11.4253 3 11.95V12.05C3 12.5747 3.42533 13 3.95 13H20.05C20.5747 13 21 12.5747 21 12.05V11.95C21 11.4253 20.5747 11 20.05 11Z" fill="white"/>
+                        <path class="bar bar2" d="M20.05 16H3.95C3.42533 16 3 16.4253 3 16.95V17.05C3 17.5747 3.42533 18 3.95 18H20.05C20.5747 18 21 17.5747 21 17.05V16.95C21 16.4253 20.5747 16 20.05 16Z" fill="white"/>
+                        <path class="bar bar3" d="M20.05 6H3.95C3.42533 6 3 6.42533 3 6.95V7.05C3 7.57467 3.42533 8 3.95 8H20.05C20.5747 8 21 7.57467 21 7.05V6.95C21 6.42533 20.5747 6 20.05 6Z" fill="white"/>
                     </svg>
                 </span>
             </button>
@@ -40,5 +40,22 @@ export default{
     background: #292929;
     
 }
+
+.bar {
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bar1 {
+  transform-origin: 190px 20.5px;
+}
+.bar2 {
+  transform-origin: 190px 28.5px;
+}
+.active .bar1 {
+  transform: translateY(8.6px) rotate(45deg);
+}
+.active .bar2 {
+  transform: rotate(-45deg);
+}
+
 </style>
 
