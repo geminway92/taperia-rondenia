@@ -26,6 +26,7 @@ export default{
         goRoute(rute){
             this.$emit('triggerMenu');
             this.$router.push({name: rute})
+            scrollTo(0, 0)
         }
     }
 }
