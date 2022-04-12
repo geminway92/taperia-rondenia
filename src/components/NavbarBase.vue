@@ -1,7 +1,7 @@
 <template>
     <div class="navbar-base">
         <div class="site-logo">
-            <img src="../assets/logo-taperia-rondenia.png" alt="logo rondeña">
+            <img src="../../public/assets/logo-taperia-rondenia.png" alt="logo rondeña">
             <button @click="this.$emit('triggerMenu')">
                 <span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,21 +41,6 @@ export default{
     
 }
 
-.bar {
-  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.bar1 {
-  transform-origin: 190px 20.5px;
-}
-.bar2 {
-  transform-origin: 190px 28.5px;
-}
-.active .bar1 {
-  transform: translateY(8.6px) rotate(45deg);
-}
-.active .bar2 {
-  transform: rotate(-45deg);
-}
 
 </style>
 

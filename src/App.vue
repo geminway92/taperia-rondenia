@@ -1,6 +1,7 @@
 <template>
   <NavbarBase @triggerMenu="triggerMenu"/>
   <ListNav :toggleList="toggleList" :isActiveList="isActiveList"/>
+  <router-view/>
 </template>
 
 <script>
@@ -32,15 +33,20 @@ export default {
 </script>
 
 <style>
+
 body{
   margin: 0;
+  overflow: hidden;
+}
+
+button{
+  cursor: pointer;
 }
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 </style>

@@ -1,13 +1,11 @@
 <template>
-    <div class="list-nav" :class="isActiveList">
-        <ul>
-            <li>INICIO</li>
-            <li>MENU</li>
-            <li>OFERTAS</li>
-            <li>RESERVAS</li>
-            <li>UBICACIÓN</li>
-        </ul>
-    </div>
+    <nav class="list-nav" :class="isActiveList">
+        <router-link :to="{name: 'homeView'}">INICIO</router-link>
+        <router-link :to="{name: 'homeView'}">MENU</router-link>
+        <router-link :to="{name: 'homeView'}">OFERTAS</router-link>
+        <router-link :to="{name: 'homeView'}">RESERVAS</router-link>
+        <router-link :to="{name: 'contactView'}">CONTACTO</router-link>
+    </nav>
 </template>
 <script>
 export default{
@@ -24,23 +22,34 @@ export default{
 
 
 <style scoped>
-ul{
-    list-style-type: none;
-    margin: 0;
+
+a{
+    text-decoration: none;
+    color: #f2f2f2;
+    padding: 0.5em;
+    font-weight: bold;
 }
 
-ul li{
-    padding: 0.5em;
+a:hover{
+    background: #3a3a3a;
 }
+
+nav{
+    display: flex;
+    flex-direction: column;
+    
+}
+
 
 .list-nav{
-    position: relative;
+    position: absolute;
     background: #ef6962;
     color: #f2f2f2;
     width: 85%;
+    top: 60px;
     left: 100%;
-    align-self: flex-end;
     transition: all 1s;
+    z-index: 1;
     
 }
 
@@ -58,14 +67,14 @@ ul li{
     }
 
     to{
-        left: 0%;
+        left: 15%;
     }
     
 }
 
 @keyframes desactiveMenu {
     0%{
-        left: 0%;
+        left: 15%;
         }
 
     100%{
