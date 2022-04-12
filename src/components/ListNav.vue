@@ -1,12 +1,17 @@
 <template>
     <nav class="list-nav" :class="isActiveList">
-        <router-link :to="{name: 'homeView'}">INICIO</router-link>
-        <router-link :to="{name: 'homeView'}">MENU</router-link>
-        <router-link :to="{name: 'homeView'}">OFERTAS</router-link>
-        <router-link :to="{name: 'homeView'}">RESERVAS</router-link>
-        <router-link :to="{name: 'contactView'}">CONTACTO</router-link>
+        <ul>
+            <li @click="goRoute('homeView')" >INICIO</li>
+            <li @click="goRoute('homeView')">MENU</li>
+            <li @click="goRoute('homeView')">OFERTAS</li>
+            <li @click="goRoute('homeView')">RESERVAS</li>
+            <li @click="goRoute('contactView')">CONTACTO</li>    
+        </ul>
+        
+        
     </nav>
 </template>
+
 <script>
 export default{
     props:{
@@ -16,6 +21,12 @@ export default{
         isActiveList: {
             type: String
         }
+    },
+    methods: {
+        goRoute(rute){
+            this.$emit('triggerMenu');
+            this.$router.push({name: rute})
+        }
     }
 }
 </script>
@@ -23,14 +34,20 @@ export default{
 
 <style scoped>
 
-a{
-    text-decoration: none;
-    color: #f2f2f2;
-    padding: 0.5em;
-    font-weight: bold;
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-a:hover{
+ul li{
+    padding: 0.5em;
+    cursor: pointer;
+    margin: 0;
+}
+
+
+li:hover{
     background: #3a3a3a;
 }
 

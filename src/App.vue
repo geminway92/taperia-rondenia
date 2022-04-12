@@ -1,6 +1,6 @@
 <template>
   <NavbarBase @triggerMenu="triggerMenu"/>
-  <ListNav :toggleList="toggleList" :isActiveList="isActiveList"/>
+  <ListNav :toggleList="toggleList" :isActiveList="isActiveList" @triggerMenu="triggerMenu"/>
   <router-view/>
 </template>
 
