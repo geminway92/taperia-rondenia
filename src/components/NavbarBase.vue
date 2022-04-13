@@ -1,7 +1,7 @@
 <template>
     <div class="navbar-base">
         <div class="site-logo">
-            <img src="../../public/assets/logo-taperia-rondenia.png" alt="logo rondeña">
+            <img @click="this.$router.push('/')" src="../../public/assets/logo-taperia-rondenia.png" alt="logo rondeña">
             <button @click="this.$emit('triggerMenu')">
                 <span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,6 +23,9 @@ export default{
 </script>
 
 <style scoped>
+img{
+    cursor: pointer;
+}
 
 .site-logo{
     background: #292929;
