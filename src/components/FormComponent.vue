@@ -38,7 +38,18 @@ export default {
               showConfirmButton: false,
               timer: 1500
             })
+
+            this.resetForm()
+
         },
+
+        resetForm(){
+            this.userForm.nameUser = ''
+            this.userForm.email = ''
+            this.userForm.phone = null
+            this.userForm.message = ''
+            this.userForm.accetClausula = false
+        }
     }
 }
 </script>
