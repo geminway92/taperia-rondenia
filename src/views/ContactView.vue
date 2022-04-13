@@ -29,12 +29,12 @@ export default {
     },
     data(){
         return{
-            widthMap: 320
+            widthMap: 300
         }
     },
     methods: {
         calcWidthScreen(){
-            this.widthMap = (screen.width > 400 && screen.width < 700 ? 500 :  screen.width > 700 ? 700 : 320)
+            this.widthMap = (screen.width > 400 && screen.width < 700 ? 500 :  screen.width > 700 ? 700 : 300)
         }
     },
     created(){

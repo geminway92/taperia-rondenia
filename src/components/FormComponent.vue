@@ -1,9 +1,9 @@
 <template>
     <form @submit.prevent="OnSubmit(userForm)">
-        <input type="text" placeholder="Nombre" v-model="userForm.nameUser">
-        <input type="email" placeholder="Email" v-model="userForm.email">
-        <input type="tel" placeholder="Teléfono" pattern="[0-9]{9}" v-model="userForm.phone" required>
-        <textarea cols="22" rows="10" placeholder="Mensaje" v-model="userForm.message" required></textarea>
+        <input class="input-form" type="text" placeholder="Nombre" v-model="userForm.nameUser">
+        <input class="input-form" type="email" placeholder="Email" v-model="userForm.email">
+        <input class="input-form" type="tel" placeholder="Teléfono" pattern="[0-9]{9}" v-model="userForm.phone" required>
+        <textarea class="input-form" placeholder="Mensaje" v-model="userForm.message" required></textarea>
         <label for="input-clausula">Cláusula informativa</label>
         <span>
             <input type="checkbox" id="input-clausula" v-model="userForm.accetClausula" required>
@@ -48,6 +48,11 @@ label{
     font-weight: bold;
 }
 
+textarea {
+  resize: none;
+  height: 100px;
+}
+
 p{
     padding: 0 1em;
 }
@@ -59,7 +64,8 @@ form {
     gap: .5em;
 }
 
-input,textarea{
+.input-form{
+    width: 80%;
     padding: 1em;
     font-weight: bold;
 }
@@ -72,5 +78,18 @@ button{
     margin: 1em;
     font-weight: bold;
     
+}
+
+
+@media screen and (min-width: 700px) {
+    .input-form{
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .input-form{
+        width: 300px;
+    }
 }
 </style>
