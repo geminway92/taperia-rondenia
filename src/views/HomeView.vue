@@ -39,4 +39,15 @@ h1{
     text-align: center;
 }
 
+@media screen and (min-width: 700px) {
+    img{
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    img{
+        width: 60%;
+    }
+}
 </style>
