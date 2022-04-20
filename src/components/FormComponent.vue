@@ -86,6 +86,7 @@ button{
     width: 80px;
     padding: 1em;
     background: #dfe2e4;
+    color:black;
     margin: 1em;
     font-weight: bold;
     -webkit-appearance: none;
