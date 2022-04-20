@@ -20,7 +20,7 @@ export default {
 
   methods: {
     nextPic () {
-      if (this.posicionActual < 40) {
+      if (this.posicionActual < 38) {
         this.posicionActual++
         } else {
         this.posicionActual = 1
