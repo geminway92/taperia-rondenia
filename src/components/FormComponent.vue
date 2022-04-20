@@ -85,9 +85,11 @@ form {
 button{
     width: 80px;
     padding: 1em;
+    background: #dfe2e4;
     margin: 1em;
     font-weight: bold;
     -webkit-appearance: none;
+    border-radius: 10px;
 }
 
 
