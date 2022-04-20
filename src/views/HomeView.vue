@@ -3,6 +3,7 @@
     <BannerComponent/>
         <div class="container-intro">
             <h1>Bienvenidos a la Rondeña</h1>
+            <img src="../../public/assets/logo-taperia-rondenia.png" alt="">
             <p>Descubre la carta</p>
         </div>
     </div>
@@ -20,6 +21,10 @@ export default{
 </script>
 
 <style scoped>
+img{
+    object-fit: cover;
+    width: 100%;
+}
 h1{
     text-align: initial;
     padding: .5em;
@@ -33,8 +38,5 @@ h1{
 .container-intro{
     text-align: center;
 }
-
-
-
 
 </style>

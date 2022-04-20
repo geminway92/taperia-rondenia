@@ -73,7 +73,6 @@ nav{
 
 .none{
     display: none;
-    animation: desactiveMenu 1s forwards;
 }
 
 @keyframes activeMenu {
@@ -88,13 +87,4 @@ nav{
     
 }
 
-@keyframes desactiveMenu {
-    0%{
-        left: 15%;
-        }
-
-    100%{
-        left: 50%;
-    }
-}
 </style>
