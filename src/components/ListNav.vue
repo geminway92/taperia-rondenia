@@ -2,8 +2,7 @@
     <nav class="list-nav" :class="isActiveList">
         <ul>
             <li @click="goRoute('homeView')" >INICIO</li>
-            <li @click="goRoute('homeView')">MENU</li>
-            <li @click="goRoute('homeView')">OFERTAS</li>
+            <li @click="goRoute('cartaView')">CARTAS</li>
             <li @click="goRoute('homeView')">RESERVAS</li>
             <li @click="goRoute('contactView')">CONTACTO</li>    
         </ul>

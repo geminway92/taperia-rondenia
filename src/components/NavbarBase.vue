@@ -28,7 +28,7 @@ img{
 }
 
 .site-logo{
-    background: #292929;
+    background: #262323;
     height: 60px;
     display: flex;
     justify-content: space-between;
@@ -40,7 +40,7 @@ img{
 
 .site-logo button{
     border: none;
-    background: #292929;
+    background: #262323;
     
 }
 

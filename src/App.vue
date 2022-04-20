@@ -36,6 +36,9 @@ export default {
 
 body{
   margin: 0;
+  overflow-x:hidden;
+  min-height: 100vh;
+  background: #2b2b2b;
 }
 
 button{

@@ -10,7 +10,12 @@ const routes = [
   {
     path: '/contact',
     name: 'contactView',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ContactView.vue')
+    component: () => import(/* webpackChunkName: "contact" */ '../views/ContactView.vue')
+  },
+  {
+    path: '/cartas',
+    name: 'cartaView',
+    component: () => import(/* webpackChunkName: "carta" */ '../views/CartaView.vue')
   }
 ]
 
