@@ -7,8 +7,6 @@
             <li @click="goRoute('homeView')">RESERVAS</li>
             <li @click="goRoute('contactView')">CONTACTO</li>    
         </ul>
-        
-        
     </nav>
 </template>
 
@@ -47,7 +45,6 @@ ul li{
     margin: 0;
 }
 
-
 li:hover{
     background: #3a3a3a;
 }
@@ -76,11 +73,13 @@ nav{
 }
 
 .none{
+    display: none;
     animation: desactiveMenu 1s forwards;
 }
 
 @keyframes activeMenu {
     from{
+        
         left: 100%;
     }
 
@@ -96,8 +95,7 @@ nav{
         }
 
     100%{
-        left: 100%;
+        left: 50%;
     }
-    
 }
 </style>

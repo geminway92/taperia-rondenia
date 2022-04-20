@@ -17,7 +17,7 @@ export default {
   data(){
     return{
       toggleList: false,
-      isActiveList: '',
+      isActiveList: 'none',
       
     }
   },
@@ -36,8 +36,6 @@ export default {
 
 body{
   margin: 0;
-  overflow-x: hidden;
-
 }
 
 button{
