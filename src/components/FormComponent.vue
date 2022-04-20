@@ -87,7 +87,7 @@ button{
     padding: 1em;
     margin: 1em;
     font-weight: bold;
-    
+    -webkit-appearance: none;
 }
 
 
