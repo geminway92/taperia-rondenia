@@ -1,7 +1,7 @@
 <template>
   <div class="carousel">
     <div id="imagen">
-      <img :src="carrusel" alt="Foto Banner">
+      <img :src="imagenes" alt="Foto Banner">
     </div>
 </div>
 
@@ -12,21 +12,20 @@
 export default {
   data () {
     return {
-      imagenes: ['../../assets/tapa.jpg', '../../assets/tapa-1.jpg', '../../assets/tapa-langostinos.jpg'],
-      posicionActual: 0,
+      imagenes: `../../assets/tapas/1.jpeg`,
+      posicionActual: 1,
       carrusel: null
     }
   },
 
   methods: {
     nextPic () {
-      console.log('entra')
-      if (this.posicionActual >= this.imagenes.length - 1) {
-        this.posicionActual = 0
-      } else {
+      if (this.posicionActual < 40) {
         this.posicionActual++
+        } else {
+        this.posicionActual = 1
       }
-      this.carrusel = this.imagenes[this.posicionActual]
+      this.imagenes = `../../assets/tapas/${this.posicionActual}.jpeg`
     },
   },
 
@@ -34,7 +33,6 @@ export default {
     setInterval(() => {
       this.nextPic()
     }, 4000)
-    this.carrusel = this.imagenes[this.posicionActual]
   }
 }
 </script>
