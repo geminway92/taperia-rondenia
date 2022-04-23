@@ -42,7 +42,6 @@ img{
     background: #eee6c1;
     color: #000;
     font-weight: bold;
-    gap: 10px;
     padding: 1em;
     display: flex;
     justify-content: space-between;
