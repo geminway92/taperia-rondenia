@@ -14,19 +14,20 @@
         <h2>LLÁMANOS O ESCRÍBENOS</h2>
         <p class="phone">653142058</p>
         <FormComponents/>
-
-
     </div>
+        <FooterComponent/>
 </template>
 
 <script>
 import {defineAsyncComponent} from 'vue'
+import FooterComponent from '@/components/FooterComponent.vue'
 
 export default {
     name: 'contactView',
     components: {
-        FormComponents: defineAsyncComponent(() => import('../components/FormComponent.vue'))
-    },
+    FormComponents: defineAsyncComponent(() => import("../components/FormComponent.vue")),
+    FooterComponent
+},
     data(){
         return{
             widthMap: 300

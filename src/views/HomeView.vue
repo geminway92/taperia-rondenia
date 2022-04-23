@@ -6,16 +6,19 @@
             <img src="../../public/assets/logo-taperia-rondenia.png" alt="">
             <p>Descubre la carta</p>
         </div>
+        <FooterComponent/>
     </div>
 </template>
 
 <script>
 import BannerComponent from '../components/BannerComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 export default{
     name: 'homeView',
     components: {
-        BannerComponent
-    }
+    BannerComponent,
+    FooterComponent
+}
 }
 
 </script>

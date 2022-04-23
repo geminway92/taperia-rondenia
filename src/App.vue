@@ -8,11 +8,12 @@
 import NavbarBase from './components/NavbarBase.vue'
 import ListNav from './components/ListNav.vue';
 
+
 export default {
   name: 'App',
   components: {
     NavbarBase,
-    ListNav
+    ListNav,
   },
   data(){
     return{
@@ -50,5 +51,4 @@ button{
   display: flex;
   flex-direction: column;
 }
-
 </style>
