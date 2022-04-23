@@ -32,6 +32,7 @@ img{
 h1{
     padding: .5em; 
     color:#ef7067;
+    font-size: 2.5em;
 }
 
 .home{
