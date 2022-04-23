@@ -28,14 +28,14 @@ img{
     object-fit: cover;
     width: 100%;
 }
+
 h1{
-    text-align: initial;
-    padding: .5em;
+    padding: .5em; 
+    color:#ef7067;
 }
+
 .home{
-    background: #2b2b2b;
-    height: 100vh;
-    color:#dfe2e4;
+    background: #ffffff;
 }
 
 .container-intro{
