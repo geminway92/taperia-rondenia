@@ -8,15 +8,20 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/cartas',
+    name: 'cartaView',
+    component: () => import(/* webpackChunkName: "carta" */ '../views/CartaView.vue')
+  },
+  {
+    path: '/reservas',
+    name: 'reservasView',
+    component: () => import(/* webpackChunkName "reserva" */ '../views/ReservasView.vue')
+  },
+  {
     path: '/contact',
     name: 'contactView',
     component: () => import(/* webpackChunkName: "contact" */ '../views/ContactView.vue')
   },
-  {
-    path: '/cartas',
-    name: 'cartaView',
-    component: () => import(/* webpackChunkName: "carta" */ '../views/CartaView.vue')
-  }
 ]
 
 const router = createRouter({

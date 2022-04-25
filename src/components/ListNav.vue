@@ -3,7 +3,7 @@
         <ul>
             <li @click="goRoute('homeView')" >INICIO</li>
             <li @click="goRoute('cartaView')">CARTAS</li>
-            <li @click="goRoute('homeView')">RESERVAS</li>
+            <li @click="goRoute('reservasView')">RESERVAS</li>
             <li @click="goRoute('contactView')">CONTACTO</li>    
         </ul>
     </nav>
