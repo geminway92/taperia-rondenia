@@ -3,7 +3,7 @@
         <div class="container-schedule">
             <h1>HORARIO</h1>
             <p>De Martes a Domingo</p>
-            <p>13:30-16:30 | 20:30-00:30 </p>
+            <p>12:00-16:30 | 20:30-00:00 </p>
         </div>
         <div class="container-contact">
 
@@ -28,8 +28,9 @@
 </template>
 
 <script>
+
 export default {
-    
+        
 }
 </script>
 

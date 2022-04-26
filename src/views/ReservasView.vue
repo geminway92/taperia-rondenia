@@ -6,6 +6,18 @@
             <input v-model="dateForm" id="dateReserva" type="date" required>
 
             <div >
+                <input id="hour1200" type="radio" name="hour" checked>
+                <label for="hour1200">12:00</label>
+            </div>
+            <div >
+                <input id="hour1230" type="radio" name="hour" checked>
+                <label for="hour1230">12:30</label>
+            </div>
+            <div >
+                <input id="hour1300" type="radio" name="hour" checked>
+                <label for="hour1300">13:00</label>
+            </div>
+            <div >
                 <input id="hour1330" type="radio" name="hour" checked>
                 <label for="hour1330">13:30</label>
             </div>
@@ -57,10 +69,6 @@
                 <input id="hour0000" type="radio" name="hour">
                 <label for="hour0000">00:00</label>
             </div>
-            <div>
-                <input id="hour0030" type="radio" name="hour">
-                <label for="hour0030">00:30</label>
-            </div>
 
             <label for="nameInput">Nombre*:</label>
             <input id="nameInput" type="text" >
@@ -89,13 +97,18 @@
         </div>
 
     </div>
+    <FooterComponent/>
 </template>
 
 <script>
+import FooterComponent from '@/components/FooterComponent.vue';
 import reserveApi from '../api/reserveApi'
 
 export default {
     name: 'reservasView',
+    components:{
+        FooterComponent
+    },
     data(){
         return{
             dateForm: new Date().toISOString().slice(0, 10),
