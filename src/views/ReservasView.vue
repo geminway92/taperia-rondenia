@@ -3,94 +3,110 @@
         <h1>Reservas</h1>
         <form @submit.prevent="onEventClick">
             <label for="dateReserva">Elige fecha</label>
-            <input v-model="dateForm" id="dateReserva" type="date" required>
+            <input v-model="dateForm" id="dateReserva" type="date" required @change="getReserveApi">
 
-            <div class="container-toggle-hour">
+            <div class="container-toggle-hour" @change="getReserveApi">
                 <div class="toggle-hour" >
-                    <input id="hour1200" type="radio" name="hour" checked>
+                    <input id="hour1200" type="radio" name="hour" value="12:00"  v-model="checkedHour">
                     <label for="hour1200">12:00</label>
                 </div>
                 <div class="toggle-hour" >
-                    <input id="hour1230" type="radio" name="hour" >
+                    <input id="hour1230" type="radio" name="hour"  value="12:30"  v-model="checkedHour">
                     <label for="hour1230">12:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1300" type="radio" name="hour" >
+                    <input id="hour1300" type="radio" name="hour"  value="13:00"  v-model="checkedHour">
                     <label for="hour1300">13:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1330" type="radio" name="hour" >
+                    <input id="hour1330" type="radio" name="hour"  value="13:30"  v-model="checkedHour" >
                     <label for="hour1330">13:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1400" type="radio" name="hour">
+                    <input id="hour1400" type="radio" name="hour"  value="14:00"  v-model="checkedHour">
                     <label for="hour1400">14:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1430" type="radio" name="hour">
+                    <input id="hour1430" type="radio" name="hour"  value="14:30"  v-model="checkedHour">
                     <label for="hour1430">14:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1500" type="radio" name="hour">
+                    <input id="hour1500" type="radio" name="hour"  value="15:00"  v-model="checkedHour">
                     <label for="hour1500">15:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1530" type="radio" name="hour">
+                    <input id="hour1530" type="radio" name="hour"  value="15:30"  v-model="checkedHour">
                     <label for="hour1530">15:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1600" type="radio" name="hour">
+                    <input id="hour1600" type="radio" name="hour"  value="16:00"  v-model="checkedHour">
                     <label for="hour1600">16:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour1630" type="radio" name="hour">
+                    <input id="hour1630" type="radio" name="hour"  value="16:30"  v-model="checkedHour">
                     <label for="hour1630">16:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2030" type="radio" name="hour">
+                    <input id="hour2030" type="radio" name="hour"  value="20:30"  v-model="checkedHour">
                     <label for="hour2030">20:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2100" type="radio" name="hour">
+                    <input id="hour2100" type="radio" name="hour"  value="21:00"  v-model="checkedHour">
                     <label for="hour2100">21:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2130" type="radio" name="hour">
+                    <input id="hour2130" type="radio" name="hour"  value="21:30"  v-model="checkedHour">
                     <label for="hour2130">21:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2200" type="radio" name="hour">
+                    <input id="hour2200" type="radio" name="hour"  value="22:00"  v-model="checkedHour">
                     <label for="hour2200">22:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2230" type="radio" name="hour">
+                    <input id="hour2230" type="radio" name="hour"  value="22:30"  v-model="checkedHour">
                     <label for="hour2230">22:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2300" type="radio" name="hour">
+                    <input id="hour2300" type="radio" name="hour"  value="23:00"  v-model="checkedHour">
                     <label for="hour2300">23:00</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour2330" type="radio" name="hour">
+                    <input id="hour2330" type="radio" name="hour"  value="23:30"  v-model="checkedHour">
                     <label for="hour2330">23:30</label>
+                </div>
+            </div>
+            <div class="container-toggle-tab">
+
+                <div>
+                    <input id="tableInterior" type="radio" name="tableInterior"  value="Interior"  v-model="checkedTable" @change="getReserveApi">
+                    <label for="tableInterior">Mesa Interior</label>
+                </div>
+                <div>
+                    <input id="tableExterior" type="radio" name="tableExterior"  value="Exterior"  v-model="checkedTable" @change="getReserveApi">
+                    <label for="tableExterior">Mesa Exterior</label>
                 </div>
             </div>
 
             <label for="nameInput">Nombre*:</label>
-            <input id="nameInput" type="text" required>
+            <input id="nameInput" type="text" required v-model="clientForm.name">
+
             <label for="lastnameInput">Apellidos*:</label>
-            <input form="lastnameInput" type="text">
+            <input id="lastnameInput" type="text" required v-model="clientForm.lastname">
+            
             <label for="emailInput">Email*:</label>
-            <input form="emailInput" type="email" required>
+            <input id="emailInput" type="email" required v-model="clientForm.email">
+            
             <label for="clientInput">Comensales*:</label>
-            <input form="clintInput" type="number" min="1" required>
+            <input id="clintInput" type="number" min="1" required v-model="clientForm.diners">
+            
             <label for="phoneInput">Teléfono*:</label>
-            <input class="phoneInput" type="tel" pattern="[0-9]{9}" required>
+            <input id="phoneInput" type="tel" pattern="[0-9]{9}" required v-model="clientForm.phone">
+            
             <label for="commentInput">Comentarios</label>
-            <textarea id="commentInput"  required></textarea>
+            <textarea id="commentInput"  required v-model="clientForm.comments"></textarea>
 
             <span class="privacity-container">
-                <input type="checkbox" id="privacity-clausula" >
+                <input type="checkbox" id="privacity-clausula" required >
                 Acepto la Cláusula de privacidad: Con objeto de dar cumplimiento a las obligaciones derivadas del Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD) le informa que al marcar este check usted da su consentimiento para que sus datos personales quedan incorporados a los ficheros de datos de carácter personal de  para la prestación de servicios por parte de la misma y prospección comercial. El Responsable del mencionado fichero es LA RONDEÑA con email info@larondeña.com a la cual usted podrá remitir un comunicado identificado con la referencia Protección de Datos para el ejercicio de sus derechos de acceso rectificación cancelación olvido limitación portabilidad y oposición.
             </span>
             
@@ -118,29 +134,93 @@ export default {
     data(){
         return{
             dateForm: new Date().toISOString().slice(0, 10),
+            clientForm: {
+                name: '',
+                lastname: '',
+                email: '',
+                diners: 1,
+                phone: '',
+                comments: ''
+
+            },
+            checkedHour: "12:00",
+            checkedTable: 'Interior',
             tableAvailableInterior: 16,
             tableAvailableExterior: 9,
-            tableAvailableDaySelect: 0
         }
     },
     
     methods: {
-         async onEventClick() {
-            try{
-                const {data} = await reserveApi.post('reserves.json', {prueba: this.dateForm} )
-                console.log(data)
 
-            }catch (error){
-                console.log(error)
+        async onEventClick() {
+           const isAvailableTable = this.checkTableByDinners()
+           alert(isAvailableTable);
+           if(isAvailableTable){
+               try{
+                   const {data} = await reserveApi.post('reserves.json', {dayReserve: this.dateForm, hourReserve: this.checkedHour, zoneReserve: this.checkedTable, clientReserve: this.clientForm } )
+                    console.log(data)
+
+                }catch (error){
+                    console.log(error)
+                }
+            }else{
+                alert('No hay mesas disponibles');
+            }
+            
+        },
+
+        async getReserveApi(){
+            
+            const {data} = await reserveApi.get('reserves.json' )
+            
+            const dataEntries = Object.values(data)
+            console.log(dataEntries, 'entries')
+
+            this.checkAvailebleAllZone(dataEntries)
+        
+            console.log(this.dateForm, this.checkedHour, this.checkedTable)
+            console.log(this.clientForm)
+        },
+
+        checkTableByDinners(){
+             //comprobar que la Mesa que solicito hay disponible para los comensales que tengo
+            let tableNeed = 1
+            
+            this.clientForm.diners > 0  && this.clientForm.diners <= 4 ? tableNeed = 1 
+                :this.clientForm.diners > 4  && this.clientForm.diners <= 8 ? tableNeed = 2 
+                : this.clientForm.diners > 8  && this.clientForm.diners <= 12 ?  tableNeed = 3
+                : this.clientForm.diners > 12 && this.clientForm.diners <= 16 ? tableNeed = 4
+                : this.clientForm.diners > 16 && this.clientForm.diners <= 20 ? tableNeed = 5
+                : tableNeed = 'No Disponible'
+
+            
+            if(this.checkedTable === 'Interior'){
+                console.log('ha entrado')
+                if(tableNeed <= this.tableAvailableInterior){
+                     return true;
+                }else{
+                     return false;
+                }
+            }else{
+                if(tableNeed <= this.tableAvailableExterior){
+                     return true
+                }else{
+                     return false;
+                }
             }
         },
 
-        checkAvaibableTable(){
+        checkAvailebleAllZone(reservesArray){
+            const reserveFilterInterior = reservesArray.filter( e => e.dayReserve == this.dateForm && e.hourReserve == this.checkedHour && e.zoneReserve == 'Interior');
+            const reserveFilterExterior = reservesArray.filter( e => e.dayReserve == this.dateForm && e.hourReserve == this.checkedHour && e.zoneReserve == 'Exterior');
             
-        }
+            this.tableAvailableInterior = 16 -  reserveFilterInterior.length
+            this.tableAvailableExterior = 9 - reserveFilterExterior.length
+        },
     },
-    created(){
 
+    created(){
+        this.getReserveApi()
     }
 }
 </script>
@@ -215,7 +295,7 @@ button:active{
     display: none;
 }
 
-input[type="radio"]:checked + label {
+.toggle-hour input[type="radio"]:checked + label {
     background: #eee6c1;
     color: black;
 }
