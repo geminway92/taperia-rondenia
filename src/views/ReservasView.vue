@@ -67,8 +67,12 @@
                     <label for="hour2230">22:30</label>
                 </div>
                 <div class="toggle-hour">
-                    <input id="hour0000" type="radio" name="hour">
-                    <label for="hour0000">00:00</label>
+                    <input id="hour2300" type="radio" name="hour">
+                    <label for="hour2300">23:00</label>
+                </div>
+                <div class="toggle-hour">
+                    <input id="hour2330" type="radio" name="hour">
+                    <label for="hour2330">23:30</label>
                 </div>
             </div>
 
