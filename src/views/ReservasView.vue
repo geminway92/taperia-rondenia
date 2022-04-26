@@ -204,7 +204,7 @@ button:active{
 .toggle-hour label:hover {
     background: #9c6b67;
     position: relative;
-    left: 10px;
+    left: 5px;
 }
 
 .toggle-hour input[type="radio"] {
