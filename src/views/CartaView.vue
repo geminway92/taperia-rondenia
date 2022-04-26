@@ -23,7 +23,7 @@
             <tr v-for="food in carta.food" :key="food">
                 <td><span>{{food.nameFood}}</span> {{food.description}}</td>
                 <td v-if="carta.nameCarta !== 'Pá terminar'" class="text-center">{{food.tapa || food.UD}}€</td>
-                <td v-if="food.racion || food.bottle"  class="text-center">{{food.racion || food.bottle + '€'}}</td>
+                <td v-if="food.racion || food.bottle"  class="text-center">{{food.racion || food.bottle}}€</td>
             </tr>
         </table>
         <div class="link-pdf">
