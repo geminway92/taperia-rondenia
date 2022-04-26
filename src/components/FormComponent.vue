@@ -80,8 +80,6 @@ form {
     font-weight: bold;
 }
 
-
-
 button{
     width: 80px;
     padding: 1em;
