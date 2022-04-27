@@ -261,10 +261,7 @@ export default {
             
             if(this.checkedHour < hourActual ){
                 Swal.fire('Hora inferior de la actual')
-                let hours = dayActual.getHours()
-                hours = hours <= 9 ? `${hours}`.padStart(2, 0) : hours;
-            
-                this.checkedHour = `${hours}:30`
+                this.putHourActual()
             }
                 
         },
