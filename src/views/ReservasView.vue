@@ -273,7 +273,7 @@ export default {
             const dayActual = new Date()
             let hours = dayActual.getHours()
             
-            this.checkedHour = `${hours}:30`
+            this.checkedHour = `${hours + 1}:00`
             Date.parse(this.checkedHour)
         }
     },
