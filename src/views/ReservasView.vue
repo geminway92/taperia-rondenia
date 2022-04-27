@@ -75,6 +75,7 @@
                     <label for="hour2330">23:30</label>
                 </div>
             </div>
+            
             <div class="container-toggle-tab">
 
                 <div>
@@ -86,6 +87,12 @@
                     <label for="tableExterior">Mesa Exterior</label>
                 </div>
             </div>
+
+            <div class="available-number">
+                <p><span>{{this.tableAvailableInterior}}</span> Disponible Interior</p>
+                <p><span>{{this.tableAvailableExterior}}</span> Disponible Exterior</p>
+            </div>
+
 
             <label for="nameInput">Nombre*:</label>
             <input id="nameInput" type="text" required v-model="clientForm.name">
@@ -112,11 +119,7 @@
             
             <button type="submit">Reservar</button>
         </form>
-        <div class="available-number">
-            
-            <p><span>{{this.tableAvailableInterior}}</span> Disponible Interior</p>
-            <p><span>{{this.tableAvailableExterior}}</span> Disponible Exterior</p>
-        </div>
+        
 
     </div>
     <FooterComponent/>
@@ -125,6 +128,7 @@
 <script>
 import FooterComponent from '@/components/FooterComponent.vue';
 import reserveApi from '../api/reserveApi'
+import Swal from 'sweetalert2'
 
 export default {
     name: 'reservasView',
@@ -163,33 +167,42 @@ export default {
            alert(isAvailableTable);
            if(isAvailableTable){
                try{
-                   const {data} = await reserveApi.post('reserves.json', {dayReserve: this.dateForm, hourReserve: this.checkedHour, zoneReserve: this.checkedTable, clientReserve: this.clientForm } )
-                    console.log(data)
+                    await reserveApi.post('reserves.json', {dayReserve: this.dateForm, hourReserve: this.checkedHour, zoneReserve: this.checkedTable, clientReserve: this.clientForm } )
+                    
+                    Swal.fire({
+                        title: 'Reserva Realizada',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
 
                 }catch (error){
-                    console.log(error)
+                    Swal.fire({
+                        title: error.message,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: '#ef7067'
+                    })
                 }
             }else{
-                alert('No hay mesas disponibles');
+                Swal.fire({
+                    title: 'No hay mesas suficientes, prueba a otra hora',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#ef7067'
+                })
             }
             
         },
 
         async getReserveApi(){
-            
             const {data} = await reserveApi.get('reserves.json' )
-            
             const dataEntries = Object.values(data)
-            console.log(dataEntries, 'entries')
-
+            
             this.checkAvailebleAllZone(dataEntries)
-        
-            console.log(this.dateForm, this.checkedHour, this.checkedTable)
-            console.log(this.clientForm)
         },
 
         checkTableByDinners(){
-             //comprobar que la Mesa que solicito hay disponible para los comensales que tengo
             let tableNeed = 1
             
             this.clientForm.diners > 0  && this.clientForm.diners <= 4 ? tableNeed = 1 
@@ -201,7 +214,7 @@ export default {
 
             
             if(this.checkedTable === 'Interior'){
-                console.log('ha entrado')
+            
                 if(tableNeed <= this.tableAvailableInterior){
                      return true;
                 }else{
@@ -277,7 +290,8 @@ button:active{
 }
 .container-toggle-hour{
         display: flex;
-        width: 70%;
+        width: 80%;
+        justify-content: center;
         flex-wrap: wrap;
     }
 
@@ -313,6 +327,10 @@ input[type="text"], input[type="email"], input[type="number"], input[type="tel"]
     padding: .5em;
     font-size: 1em;
 }
+.container-toggle-tab{
+    display: flex;
+    gap: 1em;
+}
 .privacity-container{
     width: 80%;
     color:white;
@@ -340,5 +358,4 @@ textarea {
     color: white;
     padding: .5em;
 }
-
 </style>
