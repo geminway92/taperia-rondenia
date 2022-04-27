@@ -151,6 +151,12 @@ export default {
     },
     
     methods: {
+        pothDayMinAtributte(){
+            const dayActual = new Date().toISOString().slice(0,10)
+                
+            const input = document.querySelector('#dateReserva')
+            input.setAttribute('min', dayActual)
+        },
 
         async onEventClick() {
            const isAvailableTable = this.checkTableByDinners()
@@ -221,6 +227,9 @@ export default {
 
     created(){
         this.getReserveApi()
+    },
+    mounted(){
+        this.pothDayMinAtributte()
     }
 }
 </script>
