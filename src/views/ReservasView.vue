@@ -213,6 +213,7 @@ export default {
             const {data} = await reserveApi.get('reserves.json' )
             const dataEntries = Object.values(data)
             
+            this.checkHourIsPass()
             this.checkAvailebleAllZone(dataEntries)
         },
 
@@ -250,11 +251,38 @@ export default {
             this.tableAvailableInterior = 16 -  reserveFilterInterior.length
             this.tableAvailableExterior = 9 - reserveFilterExterior.length
         },
+
+        checkHourIsPass(){
+            const dayActual = new Date()
+            const hourActual = `${dayActual.getHours()}:${dayActual.getMinutes()}`
+            Date.parse(hourActual)
+
+            
+            
+            if(this.checkedHour < hourActual ){
+                Swal.fire('Hora inferior de la actual')
+                let hours = dayActual.getHours()
+                hours = hours <= 9 ? `${hours}`.padStart(2, 0) : hours;
+            
+                this.checkedHour = `${hours}:30`
+            }
+                
+        },
+
+        putHourActual(){
+            const dayActual = new Date()
+            let hours = dayActual.getHours()
+            
+            this.checkedHour = `${hours}:30`
+            Date.parse(this.checkedHour)
+        }
     },
 
     created(){
+        this.putHourActual()
         this.getReserveApi()
     },
+
     mounted(){
         this.pothDayMinAtributte()
     }
