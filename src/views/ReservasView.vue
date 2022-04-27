@@ -89,8 +89,8 @@
             </div>
 
             <div class="available-number">
-                <p><span>{{this.tableAvailableInterior}}</span> Disponible Interior</p>
-                <p><span>{{this.tableAvailableExterior}}</span> Disponible Exterior</p>
+                <p><span :class="{available: tableAvailableInterior,'not-available': tableAvailableInterior === 0 }">{{this.tableAvailableInterior}}</span> Disponible Interior</p>
+                <p><span :class="{available: tableAvailableExterior,'not-available': tableAvailableExterior === 0  }">{{this.tableAvailableExterior}}</span> Disponible Exterior</p>
             </div>
 
 
@@ -113,7 +113,7 @@
             <textarea id="commentInput"  required v-model="clientForm.comments"></textarea>
 
             <span class="privacity-container">
-                <input type="checkbox" id="privacity-clausula" required >
+                <input type="checkbox" id="privacity-clausula" v-model="checkedPrivacity" required >
                 Acepto la Cláusula de privacidad: Con objeto de dar cumplimiento a las obligaciones derivadas del Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD) le informa que al marcar este check usted da su consentimiento para que sus datos personales quedan incorporados a los ficheros de datos de carácter personal de  para la prestación de servicios por parte de la misma y prospección comercial. El Responsable del mencionado fichero es LA RONDEÑA con email info@larondeña.com a la cual usted podrá remitir un comunicado identificado con la referencia Protección de Datos para el ejercicio de sus derechos de acceso rectificación cancelación olvido limitación portabilidad y oposición.
             </span>
             
@@ -126,14 +126,15 @@
 </template>
 
 <script>
-import FooterComponent from '@/components/FooterComponent.vue';
+import {defineAsyncComponent} from 'vue'
+
 import reserveApi from '../api/reserveApi'
 import Swal from 'sweetalert2'
 
 export default {
     name: 'reservasView',
     components:{
-        FooterComponent
+        FooterComponent: defineAsyncComponent(() => import('../components/FooterComponent.vue'))
     },
     data(){
         return{
@@ -149,6 +150,7 @@ export default {
             },
             checkedHour: "12:00",
             checkedTable: 'Interior',
+            checkedPrivacity: false,
             tableAvailableInterior: 16,
             tableAvailableExterior: 9,
         }
@@ -164,7 +166,7 @@ export default {
 
         async onEventClick() {
            const isAvailableTable = this.checkTableByDinners()
-           alert(isAvailableTable);
+           
            if(isAvailableTable){
                try{
                     await reserveApi.post('reserves.json', {dayReserve: this.dateForm, hourReserve: this.checkedHour, zoneReserve: this.checkedTable, clientReserve: this.clientForm } )
@@ -175,6 +177,18 @@ export default {
                         showConfirmButton: false,
                         timer: 1500
                     })
+
+                    this.getReserveApi()
+
+                    this.clientForm = {
+                        name: '',
+                        lastname: '',
+                        email: '',
+                        diners: 1,
+                        phone: '',
+                        comments: ''
+                    },
+                    this.checkedPrivacity = false
 
                 }catch (error){
                     Swal.fire({
@@ -353,8 +367,14 @@ textarea {
 
 }
 
-.available-number span{
+.available{
     background: green;
+}
+.not-available{
+    background: rgb(221, 19, 19);
+    
+}
+.available-number span{
     color: white;
     padding: .5em;
 }

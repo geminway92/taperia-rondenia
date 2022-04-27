@@ -20,13 +20,13 @@
 
 <script>
 import {defineAsyncComponent} from 'vue'
-import FooterComponent from '@/components/FooterComponent.vue'
+
 
 export default {
     name: 'contactView',
     components: {
     FormComponents: defineAsyncComponent(() => import("../components/FormComponent.vue")),
-    FooterComponent
+    FooterComponent: defineAsyncComponent(() => import("../components/FooterComponent.vue"))
 },
     data(){
         return{
