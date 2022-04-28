@@ -118,7 +118,10 @@ export default {
             ]
         };
     },
-    components: { FooterComponent }
+    components: { FooterComponent },
+    created(){
+        scrollTo(0,0)
+    }
 }
 </script>
 
