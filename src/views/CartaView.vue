@@ -92,7 +92,7 @@ export default {
                         { nameFood: "Soniquete", description: "caramelo de rabo de toro", tapa: 5.50, racion: ''},
                     ], link: "https://drive.google.com/file/d/1_hjqkK3NBDiTXsjvtzScI8nye40RNYIP/view?usp=sharing"
                 },
-                { nameCarta: "Pá terminar", food: [
+                { nameCarta: "Pa´ terminar", food: [
                         { nameFood: "Rumba", description: "tarta de queso", racion: 1.95},
                         { nameFood: "Toque", description: "coulant de chocolate y grosella", racion: 4.50},
                         { nameFood: "Pulso", description: "mousse de mango", racion: 5.95},
