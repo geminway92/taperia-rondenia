@@ -148,7 +148,7 @@ export default {
                 comments: ''
 
             },
-            checkedHour: "12:00",
+            checkedHour: null,
             checkedTable: 'Interior',
             checkedPrivacity: false,
             tableAvailableInterior: 16,
@@ -256,22 +256,40 @@ export default {
             const dayActual = new Date()
             const hourActual = `${dayActual.getHours()}:${dayActual.getMinutes()}`
             Date.parse(hourActual)
-
             
-            
-            if(this.checkedHour < hourActual ){
+            let dayActualShort = dayActual.toISOString().slice(0,10)
+            let daySelecShort = new Date(this.dateForm).toISOString().slice(0,10)
+    
+            if( dayActualShort === daySelecShort && this.checkedHour < hourActual ){
                 Swal.fire('Hora inferior de la actual')
                 this.putHourActual()
+
+            }else if(dayActualShort > daySelecShort ){
+                Swal.fire('El día es anterior al actual')
+                this.checkedHour = null
+
             }
                 
         },
 
         putHourActual(){
             const dayActual = new Date()
-            let hours = dayActual.getHours()
+            let hours = dayActual.getHours();
+            let minutes = dayActual.getMinutes();
             
-            this.checkedHour = `${hours + 1}:00`
-            Date.parse(this.checkedHour)
+            hours = hours <= 9 ? `${hours}`.padStart(2, 0) : hours;
+            minutes = minutes <= 9 ? `${minutes}`.padStart(2, 0) : minutes;
+            
+            const hourActual = `${hours}:${minutes}`
+           
+            if(hourActual <= '12:00'){
+                alert('es menor')
+                this.checkedHour = '12:00'
+                
+            }else {
+                this.checkedHour = `${hours + 1}:00`
+            }
+
         }
     },
 
