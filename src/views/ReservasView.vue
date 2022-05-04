@@ -283,7 +283,6 @@ export default {
             const hourActual = `${hours}:${minutes}`
            
             if(hourActual <= '12:00'){
-                alert('es menor')
                 this.checkedHour = '12:00'
                 
             }else {
