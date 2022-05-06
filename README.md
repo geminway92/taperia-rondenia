@@ -38,11 +38,11 @@ https://larondenia.netlify.app/
 ### Reproducir en local
 Clona el proyecto
 ```
-  git clone https://github.com/geminway92/cultura-y-ocio-malaga.git
+  git clone https://github.com/geminway92/taperia-rondenia.git
 ```
 Entra en la carpeta
 ```
-  cd taperia-larondenia
+  cd taperia-rondenia
 ```
 Instala las dependencias del proyecto
 ```
