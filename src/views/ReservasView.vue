@@ -165,15 +165,13 @@ export default {
     
     methods: {
 
-        generateModal( title, icon, confirmButtonText, confirmButtonColor ){
-            const paramsSwal = {
+        generateModal( title, icon = 'success' ){
+            this.paramsSwal = {
                 title,
                 icon,
-                confirmButtonText,
-                confirmButtonColor
             }
 
-            Swal.fire(paramsSwal)
+            Swal.fire(this.paramsSwal)
         },
 
         validateForm(){
@@ -185,10 +183,10 @@ export default {
             }
 
             if(!hourIsPass){
-                return this.generateModal('Hora inferior de la actual', 'error', 'Ok', '#ef7067')
+                return this.generateModal('Hora inferior de la actual', 'error')
             }
             if(!this.checkedHour){
-                return this.generateModal('Elige una hora', 'error', 'Ok', '#ef7067')
+                return this.generateModal('Elige una hora', 'error')
             }
 
             this.postReserve( tableNeed )
@@ -216,7 +214,7 @@ export default {
                 this.checkedPrivacity = false
 
             }catch (error){
-                this.generateModal(error.message, 'error', 'Ok', '#ef7067')
+                this.generateModal(error.message, 'error')
             }
             
         },
@@ -308,12 +306,12 @@ export default {
                 this.dateSelect = new Date(this.dateSelect).toISOString().substring(0, 10);
         
             if( dayActual === this.dateSelect && this.checkedHour < hourMinActual ){
-                this.generateModal('Hora inferior de la actual', 'error', 'Ok', '#ef7067')
+                this.generateModal('Hora inferior de la actual', 'error')
                 return false
 
             }else if(dayActual > this.dateSelect ){
     
-                this.generateModal('El día es anterior al actual', 'error', 'Ok', '#ef7067')
+                this.generateModal('El día es anterior al actual', 'error')
                 this.checkedHour = null
                 return false
             }
