@@ -1,9 +1,9 @@
 <template>
     <div class="reservasView">
         <h1>Reservas</h1>
-        <form @submit.prevent="onEventClick">
+        <form @submit.prevent="validateForm">
             <label for="dateReserva">Elige fecha</label>
-            <input v-model="dateForm" id="dateReserva" type="date" required @change="getReserveApi">
+            <input v-model="dateSelect" id="dateReserva" type="date" :min="attributeMin" required @change="getReserveApi">
 
             <div class="container-toggle-hour" @change="getReserveApi">
                 <div class="toggle-hour" >
@@ -79,11 +79,11 @@
             <div class="container-toggle-tab">
 
                 <div>
-                    <input id="tableInterior" type="radio" name="tableInterior"  value="Interior"  v-model="checkedTable" @change="getReserveApi">
+                    <input id="tableInterior" type="radio" name="tableInterior"  value="Interior"  v-model="checkedTable">
                     <label for="tableInterior">Mesa Interior</label>
                 </div>
                 <div>
-                    <input id="tableExterior" type="radio" name="tableExterior"  value="Exterior"  v-model="checkedTable" @change="getReserveApi">
+                    <input id="tableExterior" type="radio" name="tableExterior"  value="Exterior"  v-model="checkedTable">
                     <label for="tableExterior">Mesa Exterior</label>
                 </div>
             </div>
@@ -138,7 +138,7 @@ export default {
     },
     data(){
         return{
-            dateForm: new Date().toISOString().slice(0, 10),
+            dateSelect: '',
             clientForm: {
                 name: '',
                 lastname: '',
@@ -153,67 +153,84 @@ export default {
             checkedPrivacity: false,
             tableAvailableInterior: 16,
             tableAvailableExterior: 9,
+            attributeMin: '',
+            paramsSwal: {
+               title: '',
+               icon: 'success',
+               showConfirmButton: false,
+               timer: 1500
+           }
         }
     },
     
     methods: {
-        pothDayMinAtributte(){
-            const dayActual = new Date().toISOString().slice(0,10)
-                
-            const input = document.querySelector('#dateReserva')
-            input.setAttribute('min', dayActual)
+
+        generateModal( title, icon, confirmButtonText, confirmButtonColor ){
+            const paramsSwal = {
+                title,
+                icon,
+                confirmButtonText,
+                confirmButtonColor
+            }
+
+            Swal.fire(paramsSwal)
         },
 
-        async onEventClick() {
-           const isAvailableTable = this.checkTableByDinners()
-           
-           if(isAvailableTable){
-               try{
-                    await reserveApi.post('reserves.json', {dayReserve: this.dateForm, hourReserve: this.checkedHour, zoneReserve: this.checkedTable, clientReserve: this.clientForm } )
-                    
-                    Swal.fire({
-                        title: 'Reserva Realizada',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+        validateForm(){
+            const {isAvailable, tableNeed} =  this.checkTableByDinners()
+            const hourIsPass = this.checkHourIsPass()
 
-                    this.getReserveApi()
+            if(!isAvailable){
+                return this.generateModal('No hay mesas suficientes, prueba a otra hora', 'error')
+            }
 
-                    this.clientForm = {
-                        name: '',
-                        lastname: '',
-                        email: '',
-                        diners: 1,
-                        phone: '',
-                        comments: ''
-                    },
-                    this.checkedPrivacity = false
+            if(!hourIsPass){
+                return this.generateModal('Hora inferior de la actual', 'error', 'Ok', '#ef7067')
+            }
+            if(!this.checkedHour){
+                return this.generateModal('Elige una hora', 'error', 'Ok', '#ef7067')
+            }
 
-                }catch (error){
-                    Swal.fire({
-                        title: error.message,
-                        icon: 'error',
-                        confirmButtonText: 'Ok',
-                        confirmButtonColor: '#ef7067'
-                    })
-                }
-            }else{
-                Swal.fire({
-                    title: 'No hay mesas suficientes, prueba a otra hora',
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: '#ef7067'
+            this.postReserve( tableNeed )
+    
+        },
+
+        async postReserve( isAvailableTable ){
+
+            try{
+                await reserveApi.post('reserves.json', {dayReserve: this.dateSelect, hourReserve: this.checkedHour, numbTableReserve: isAvailableTable,  zoneReserve: this.checkedTable, clientReserve: this.clientForm })
+                
+                this.generateModal('Reserva Realizada')
+                
+                this.getReserveApi()
+
+                Object.keys(this.clientForm).forEach( key => {
+                    if(key === 'diners'){
+                        this.clientForm[key] = 1
+                        return 
+                    }
+
+                    this.clientForm[key] = ''
                 })
+        
+                this.checkedPrivacity = false
+
+            }catch (error){
+                this.generateModal(error.message, 'error', 'Ok', '#ef7067')
             }
             
         },
 
-        async getReserveApi(){
-            const {data} = await reserveApi.get('reserves.json' )
-            const dataEntries = Object.values(data)
-            
+
+        async getReserveApi() {
             this.checkHourIsPass()
+
+            const {data} = await reserveApi.get('reserves.json' )
+            if(!data){
+                return;
+            }
+
+            const dataEntries = Object.values(data)            
             this.checkAvailebleAllZone(dataEntries)
         },
 
@@ -231,13 +248,13 @@ export default {
             if(this.checkedTable === 'Interior'){
             
                 if(tableNeed <= this.tableAvailableInterior){
-                     return true;
+                     return {isAvailable: true, tableNeed};
                 }else{
                      return false;
                 }
             }else{
                 if(tableNeed <= this.tableAvailableExterior){
-                     return true
+                     return {isAvailable: true, tableNeed};
                 }else{
                      return false;
                 }
@@ -245,61 +262,70 @@ export default {
         },
 
         checkAvailebleAllZone(reservesArray){
-            const reserveFilterInterior = reservesArray.filter( e => e.dayReserve == this.dateForm && e.hourReserve == this.checkedHour && e.zoneReserve == 'Interior');
-            const reserveFilterExterior = reservesArray.filter( e => e.dayReserve == this.dateForm && e.hourReserve == this.checkedHour && e.zoneReserve == 'Exterior');
+            let counterDinnerInterior = 0;
+            let counterDinnerExterior = 0;
+
+            reservesArray.filter( e => e.dayReserve == this.dateSelect && e.hourReserve == this.checkedHour && e.zoneReserve == 'Interior')
+                .forEach(element => {
+                       counterDinnerInterior = counterDinnerInterior + element.numbTableReserve
+                    });
+            reservesArray.filter( e => e.dayReserve == this.dateSelect && e.hourReserve == this.checkedHour && e.zoneReserve == 'Exterior')
+                .forEach(element => {
+                       counterDinnerExterior = counterDinnerExterior + element.numbTableReserve
+                    });
             
-            this.tableAvailableInterior = 16 -  reserveFilterInterior.length
-            this.tableAvailableExterior = 9 - reserveFilterExterior.length
+            this.tableAvailableInterior = 16 -  counterDinnerInterior
+            this.tableAvailableExterior = 9 - counterDinnerExterior
+        
+        },
+
+        dateActual(){
+            const date = new Date()
+            const day = date.getDate()
+            const month = (date.getMonth() + 1).toString().padStart(2,0)
+            const year = date.getFullYear().toString().padStart(2,0)
+
+            const dateActual = `${year}-${month}-${day}`
+            this.attributeMin =  dateActual
+            return dateActual;
+        },
+
+        hourActual(){
+            const dayActual = new Date()
+            let hours = dayActual.getHours().toString().padStart(2,0);
+            let minutes = dayActual.getMinutes().toString().padStart(2,0);
+            
+            return `${ hours }:${minutes}`;
         },
 
         checkHourIsPass(){
-            const dayActual = new Date()
-            const hourActual = `${dayActual.getHours()}:${dayActual.getMinutes()}`
-            Date.parse(hourActual)
-            
-            let dayActualShort = dayActual.toISOString().slice(0,10)
-            let daySelecShort = new Date(this.dateForm).toISOString().slice(0,10)
+            let dayActual = this.dateActual()
+            let hourMinActual = this.hourActual()
+        
+            if(!this.dateSelect){
+                this.dateSelect = this.attributeMin
+            }
+                this.dateSelect = new Date(this.dateSelect).toISOString().substring(0, 10);
+        
+            if( dayActual === this.dateSelect && this.checkedHour < hourMinActual ){
+                this.generateModal('Hora inferior de la actual', 'error', 'Ok', '#ef7067')
+                return false
+
+            }else if(dayActual > this.dateSelect ){
     
-            if( dayActualShort === daySelecShort && this.checkedHour < hourActual ){
-                Swal.fire('Hora inferior de la actual')
-                this.putHourActual()
-
-            }else if(dayActualShort > daySelecShort ){
-                Swal.fire('El día es anterior al actual')
+                this.generateModal('El día es anterior al actual', 'error', 'Ok', '#ef7067')
                 this.checkedHour = null
-
+                return false
             }
-                
-        },
+            return true;
+        }  
 
-        putHourActual(){
-            const dayActual = new Date()
-            let hours = dayActual.getHours();
-            let minutes = dayActual.getMinutes();
-            
-            hours = hours <= 9 ? `${hours}`.padStart(2, 0) : hours;
-            minutes = minutes <= 9 ? `${minutes}`.padStart(2, 0) : minutes;
-            
-            const hourActual = `${hours}:${minutes}`
-           
-            if(hourActual <= '12:00'){
-                this.checkedHour = '12:00'
-                
-            }else {
-                this.checkedHour = `${hours + 1}:00`
-            }
-
-        }
     },
 
     created(){
-        this.putHourActual()
         this.getReserveApi()
     },
 
-    mounted(){
-        this.pothDayMinAtributte()
-    }
 }
 </script>
 
